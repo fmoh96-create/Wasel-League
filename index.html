@@ -149,9 +149,8 @@
   <p class="subtitle">التزامك لربح مستدام</p>
 </header>
 
-<div class="prizes">
-  <div class="prize-box"><div class="amount">$1,000</div><div class="label">مكافأة شهرية للمتصدر</div></div>
-  <div class="prize-box"><div class="amount">$6,000</div><div class="label">جائزة الالتزام الكبرى 6 أشهر</div></div>
+<div class="prizes" style="grid-template-columns:1fr;max-width:340px">
+  <div class="prize-box"><div class="amount">$1,000</div><div class="label">🏆 جائزة المتصدر — كل شهر</div></div>
 </div>
 
 <div class="main">
@@ -193,22 +192,22 @@
           <div class="card-explain-item" style="background:rgba(192,57,43,0.08);border:1px solid rgba(192,57,43,0.25)">
             <span class="dot dot-greed"></span>
             <div><div style="font-size:0.85rem;font-weight:700;color:var(--red-light)">🔴 كرت الطمع</div>
-            <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px">فتح صفقة جديدة قبل اكتمال الهدف السابق — <strong style="color:var(--red-light)">سماح 3 كروت، الرابع فأكثر يخصم 12.5 نقطة</strong></div></div>
+            <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px">تجاهل الخروج قبل بلوغ الهدف أو بعده — <strong style="color:var(--red-light)">سماح 3 كروت، الرابع فأكثر يخصم 12.5 نقطة</strong></div></div>
           </div>
           <div class="card-explain-item" style="background:rgba(211,84,0,0.08);border:1px solid rgba(211,84,0,0.25)">
             <span class="dot dot-fomo"></span>
             <div><div style="font-size:0.85rem;font-weight:700;color:var(--orange-light)">🟠 كرت FOMO</div>
-            <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px">الدخول بدون توصية أو تحليل — <strong style="color:var(--orange-light)">سماح 3 كروت، الرابع فأكثر يخصم 12.5 نقطة</strong></div></div>
+            <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px">دخول بدون توصية — <strong style="color:var(--orange-light)">سماح 3 كروت، الرابع فأكثر يخصم 12.5 نقطة</strong></div></div>
           </div>
           <div class="card-explain-item" style="background:rgba(183,149,11,0.08);border:1px solid rgba(183,149,11,0.25)">
             <span class="dot dot-late"></span>
             <div><div style="font-size:0.85rem;font-weight:700;color:var(--yellow-light)">🟡 كرت دخول متأخر</div>
-            <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px">الدخول بعد فوات الأوان — <strong style="color:var(--yellow-light)">سماح 3 كروت، الرابع فأكثر يخصم 12.5 نقطة</strong></div></div>
+            <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px">دخول بعد التوصية — <strong style="color:var(--yellow-light)">سماح 3 كروت، الرابع فأكثر يخصم 12.5 نقطة</strong></div></div>
           </div>
           <div class="card-explain-item" style="background:rgba(80,80,110,0.15);border:1px solid rgba(150,150,180,0.25)">
             <span class="dot dot-violation"></span>
             <div><div style="font-size:0.85rem;font-weight:700;color:#C0C8E0">⚫ كرت مخالفة رأس المال</div>
-            <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px">تجاهل قواعد إدارة المخاطرة — <strong style="color:#C0C8E0">بلا سماح، كل كرت يخصم 12.5 نقطة فوراً</strong></div></div>
+            <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px">مخالفة إدارة رأس المال — تأثير فوري على التقييم — <strong style="color:#C0C8E0">بلا سماح، كل كرت يخصم 12.5 نقطة فوراً</strong></div></div>
           </div>
         </div>
       </div>
@@ -246,27 +245,77 @@
         <!-- GIVE CARDS -->
         <div class="add-panel">
           <h3>🃏 إعطاء كروت لمتداول</h3>
-          <div class="form-grid full" style="margin-bottom:10px">
+          <div class="form-grid" style="margin-bottom:10px">
             <select id="selCardTrader"><option value="">اختر المتداول</option></select>
+            <select id="selMonth"></select>
           </div>
           <div class="card-give-wrap">
-            <div class="cg-title">عدد الكروت المضافة:</div>
-            <div class="card-give-row">
-              <label><span class="dot dot-greed"></span> 🔴 كرت الطمع</label>
-              <input type="number" id="inp_greed" min="0" max="20" value="0"/>
+            <div class="cg-title">اختر الكرت وأدخل العدد:</div>
+
+            <!-- كرت الطمع -->
+            <div style="border:1px solid rgba(192,57,43,0.3);border-radius:10px;margin-bottom:8px;overflow:hidden">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(192,57,43,0.1);cursor:pointer" onclick="toggleCardDesc('desc_greed')">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span class="dot dot-greed"></span>
+                  <span style="font-size:0.85rem;font-weight:700;color:var(--red-light)">🔴 كرت الطمع</span>
+                  <span style="font-size:0.68rem;color:var(--text-muted)">(سماح 3)</span>
+                </div>
+                <input type="number" id="inp_greed" min="0" max="20" value="0" onclick="event.stopPropagation()" style="width:60px;background:var(--bg-dark);border:1px solid rgba(192,57,43,0.5);color:var(--text);font-family:'Cairo',sans-serif;font-size:0.85rem;padding:5px 8px;border-radius:6px;outline:none;text-align:center"/>
+              </div>
+              <div id="desc_greed" style="display:none;padding:10px 12px;font-size:0.78rem;color:var(--text-muted);border-top:1px solid rgba(192,57,43,0.2)">
+                <strong style="color:var(--red-light)">التعريف:</strong> تجاهل الخروج قبل بلوغ الهدف أو بعده.<br><br>
+                <strong style="color:var(--red-light)">التأثير:</strong> أول 3 كروت سماح — من الكرت الرابع كل كرت يخصم 12.5 نقطة.
+              </div>
             </div>
-            <div class="card-give-row">
-              <label><span class="dot dot-fomo"></span> 🟠 كرت FOMO</label>
-              <input type="number" id="inp_fomo" min="0" max="20" value="0"/>
+
+            <!-- كرت FOMO -->
+            <div style="border:1px solid rgba(211,84,0,0.3);border-radius:10px;margin-bottom:8px;overflow:hidden">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(211,84,0,0.1);cursor:pointer" onclick="toggleCardDesc('desc_fomo')">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span class="dot dot-fomo"></span>
+                  <span style="font-size:0.85rem;font-weight:700;color:var(--orange-light)">🟠 كرت FOMO</span>
+                  <span style="font-size:0.68rem;color:var(--text-muted)">(سماح 3)</span>
+                </div>
+                <input type="number" id="inp_fomo" min="0" max="20" value="0" onclick="event.stopPropagation()" style="width:60px;background:var(--bg-dark);border:1px solid rgba(211,84,0,0.5);color:var(--text);font-family:'Cairo',sans-serif;font-size:0.85rem;padding:5px 8px;border-radius:6px;outline:none;text-align:center"/>
+              </div>
+              <div id="desc_fomo" style="display:none;padding:10px 12px;font-size:0.78rem;color:var(--text-muted);border-top:1px solid rgba(211,84,0,0.2)">
+                <strong style="color:var(--orange-light)">التعريف:</strong> دخول بدون توصية.<br><br>
+                <strong style="color:var(--orange-light)">التأثير:</strong> أول 3 كروت سماح — من الكرت الرابع كل كرت يخصم 12.5 نقطة.
+              </div>
             </div>
-            <div class="card-give-row">
-              <label><span class="dot dot-late"></span> 🟡 دخول متأخر</label>
-              <input type="number" id="inp_late" min="0" max="20" value="0"/>
+
+            <!-- كرت دخول متأخر -->
+            <div style="border:1px solid rgba(183,149,11,0.3);border-radius:10px;margin-bottom:8px;overflow:hidden">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(183,149,11,0.1);cursor:pointer" onclick="toggleCardDesc('desc_late')">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span class="dot dot-late"></span>
+                  <span style="font-size:0.85rem;font-weight:700;color:var(--yellow-light)">🟡 دخول متأخر</span>
+                  <span style="font-size:0.68rem;color:var(--text-muted)">(سماح 3)</span>
+                </div>
+                <input type="number" id="inp_late" min="0" max="20" value="0" onclick="event.stopPropagation()" style="width:60px;background:var(--bg-dark);border:1px solid rgba(183,149,11,0.5);color:var(--text);font-family:'Cairo',sans-serif;font-size:0.85rem;padding:5px 8px;border-radius:6px;outline:none;text-align:center"/>
+              </div>
+              <div id="desc_late" style="display:none;padding:10px 12px;font-size:0.78rem;color:var(--text-muted);border-top:1px solid rgba(183,149,11,0.2)">
+                <strong style="color:var(--yellow-light)">التعريف:</strong> دخول بعد التوصية.<br><br>
+                <strong style="color:var(--yellow-light)">التأثير:</strong> أول 3 كروت سماح — من الكرت الرابع كل كرت يخصم 12.5 نقطة.
+              </div>
             </div>
-            <div class="card-give-row">
-              <label><span class="dot dot-violation"></span> ⚫ مخالفة رأس المال</label>
-              <input type="number" id="inp_violation" min="0" max="20" value="0"/>
+
+            <!-- كرت مخالفة رأس المال -->
+            <div style="border:1px solid rgba(150,150,180,0.3);border-radius:10px;margin-bottom:8px;overflow:hidden">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(80,80,110,0.2);cursor:pointer" onclick="toggleCardDesc('desc_violation')">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span class="dot dot-violation"></span>
+                  <span style="font-size:0.85rem;font-weight:700;color:#C0C8E0">⚫ مخالفة رأس المال</span>
+                  <span style="font-size:0.68rem;color:var(--text-muted)">(بلا سماح)</span>
+                </div>
+                <input type="number" id="inp_violation" min="0" max="20" value="0" onclick="event.stopPropagation()" style="width:60px;background:var(--bg-dark);border:1px solid rgba(150,150,180,0.5);color:var(--text);font-family:'Cairo',sans-serif;font-size:0.85rem;padding:5px 8px;border-radius:6px;outline:none;text-align:center"/>
+              </div>
+              <div id="desc_violation" style="display:none;padding:10px 12px;font-size:0.78rem;color:var(--text-muted);border-top:1px solid rgba(150,150,180,0.2)">
+                <strong style="color:#C0C8E0">التعريف:</strong> مخالفة إدارة رأس المال — تأثير فوري على التقييم.<br><br>
+                <strong style="color:#C0C8E0">التأثير:</strong> بلا سماح — كل كرت يخصم 12.5 نقطة فوراً من أول مرة.
+              </div>
             </div>
+
           </div>
           <button class="btn-submit" onclick="giveCards()">✓ تسجيل الكروت</button>
         </div>
@@ -642,6 +691,12 @@ function closeDetail() {
 }
 
 load(); render();
+
+function toggleCardDesc(id) {
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
 </script>
 </body>
 </html>
